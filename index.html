@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Survey Form — freeCodeCamp | Lii Méndez</title>
+  <meta name="description" content="Formulario de encuesta rediseñado con foco en accesibilidad, validación nativa y diseño responsive.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="badge">freeCodeCamp · Responsive Web Design</p>
+      <h1 id="title">freeCodeCamp Survey Form</h1>
+      <p id="description">Thank you for taking the time to help us improve the platform</p>
+    </header>
+
+    <form id="survey-form" novalidate>
+      <!-- Datos -->
+      <div class="field">
+        <label for="name" id="name-label">Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" autocomplete="name" required>
+        <small class="error" aria-live="polite"></small>
+      </div>
+
+      <div class="field">
+        <label for="email" id="email-label">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" autocomplete="email" required>
+        <small class="error" aria-live="polite"></small>
+      </div>
+
+      <div class="field">
+        <label for="number" id="number-label">Age <span class="optional">(optional)</span></label>
+        <input type="number" id="number" name="age" placeholder="Age" min="13" max="120" inputmode="numeric">
+      </div>
+
+      <div class="field">
+        <label for="dropdown">Which option best describes your current role?</label>
+        <select id="dropdown" name="current-role" required>
+          <option value="" disabled selected>Select current role</option>
+          <option value="student">Student</option>
+          <option value="full-time-job">Full Time Job</option>
+          <option value="full-time-learner">Full Time Learner</option>
+          <option value="prefer-not-to-say">Prefer not to say</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <!-- Radios -->
+      <fieldset class="field">
+        <legend>Would you recommend freeCodeCamp to a friend?</legend>
+        <label class="choice"><input type="radio" name="recommendation" value="Definitely" checked> Definitely</label>
+        <label class="choice"><input type="radio" name="recommendation" value="Maybe"> Maybe</label>
+        <label class="choice"><input type="radio" name="recommendation" value="Not sure"> Not sure</label>
+      </fieldset>
+
+      <!-- Favorite feature: ahora es select como pide freeCodeCamp -->
+      <div class="field">
+        <label for="favorite-feature">What is your favorite feature of freeCodeCamp?</label>
+        <select id="favorite-feature" name="favorite-feature" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="challenges">Challenges</option>
+          <option value="projects">Projects</option>
+          <option value="community">Community</option>
+          <option value="open-source">Open Source</option>
+        </select>
+      </div>
+
+      <!-- Checkboxes -->
+      <fieldset class="field">
+        <legend>What would you like to see improved? <span class="optional">(Check all that apply)</span></legend>
+        <div class="checks">
+          <label class="choice"><input type="checkbox" name="improvements" value="Front-end Projects"> Front-end Projects</label>
+          <label class="choice"><input type="checkbox" name="improvements" value="Back-end Projects"> Back-end Projects</label>
+          <label class="choice"><input type="checkbox" name="improvements" value="Data Visualization"> Data Visualization</label>
+          <label class="choice"><input type="checkbox" name="improvements" value="Challenges"> Challenges</label>
+          <label class="choice"><input type="checkbox" name="improvements" value="Open Source Community"> Open Source Community</label>
+          <label class="choice"><input type="checkbox" name="improvements" value="Gitter help rooms"> Gitter help rooms</label>
+          <label class="choice"><input type="checkbox" name="improvements" value="Videos"> Videos</label>
+          <label class="choice"><input type="checkbox" name="improvements" value="City Meetups"> City Meetups</label>
+          <label class="choice"><input type="checkbox" name="improvements" value="Wiki"> Wiki</label>
+          <label class="choice"><input type="checkbox" name="improvements" value="Forum"> Forum</label>
+          <label class="choice"><input type="checkbox" name="improvements" value="Additional Courses"> Additional Courses</label>
+        </div>
+      </fieldset>
+
+      <div class="field">
+        <label for="comments">Any comments or suggestions?</label>
+        <textarea id="comments" name="comments" placeholder="Enter your comment here..."></textarea>
+      </div>
+
+      <button type="submit" id="submit">Submit</button>
+      <p id="success" class="success" role="status" hidden>¡Gracias! Tu encuesta se envió correctamente. ✨</p>
+      <p class="note">Demo de front-end: los datos no se guardan en un servidor, solo se validan en el navegador.</p>
+    </form>
+
+    <footer class="footer">
+      <p>Rediseñado por <strong>Lii Méndez</strong> · <a href="https://github.com/liimendez/catdog-blog" target="_blank" rel="noopener">Ver mi otro proyecto: CatDog</a></p>
+    </footer>
+  </main>
+
+  <script>
+    const form = document.getElementById('survey-form');
+    const success = document.getElementById('success');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      success.hidden = false;
+      form.querySelectorAll('input, select, textarea').forEach(el => el.disabled = true);
+      document.getElementById('submit').textContent = 'Sent ✓';
+      window.scrollTo({ top: success.offsetTop - 80, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
